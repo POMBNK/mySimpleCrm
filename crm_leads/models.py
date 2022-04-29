@@ -27,6 +27,12 @@ class Lead(models.Model):
 
     profile_picture = models.ImageField(blank=True, null=True)
     agent = models.ForeignKey("Agent",on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.user.username
