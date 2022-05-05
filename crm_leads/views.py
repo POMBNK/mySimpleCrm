@@ -42,7 +42,7 @@ def lead_create(request:QueryDict)->render:
             age = age,
             agent = agent
          )
-         return HttpResponseRedirect(reverse("pisya"))
+         return HttpResponseRedirect(reverse("leads"))
       else:
          leadform = LeadForm()
    return render(request,'crm_leads/lead_create.html',{'leadform':leadform})
