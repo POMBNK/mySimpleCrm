@@ -2,13 +2,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
 class User(AbstractUser):
+    '''This Class describes a main atributes for User model.'''
     # phone_number = models.CharField(max_length=11)
     pass
 
 
 class Lead(models.Model):
+    '''This Class describes a main atributes for a Lead model and has a dependency 'one to many'. '''
     
     CHOICES = (
         ("VK", "VK"),
@@ -23,7 +24,7 @@ class Lead(models.Model):
     age = models.IntegerField(default=18)
 
     phoned = models.BooleanField(default=False)
-    source = models.CharField(choices=CHOICES, max_length=100)
+    source = models.CharField(choices=CHOICES, max_length=100,blank=True)
 
     profile_picture = models.ImageField(blank=True, null=True)
     agent = models.ForeignKey("Agent",on_delete=models.CASCADE)
@@ -32,6 +33,7 @@ class Lead(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 class Agent(models.Model):
+    '''This Class describes a main atributes for Agent model and has 'One to One' dependency. '''
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
