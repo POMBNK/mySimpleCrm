@@ -3,8 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    '''This Class describes a main atributes for User model.'''
-    # phone_number = models.CharField(max_length=11)
+    '''This Class describes a main atributes for CustomUser model.
+     Documentation recomedate to make a AbstractUser inheritance. '''
     pass
 
 

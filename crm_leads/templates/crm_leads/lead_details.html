@@ -9,10 +9,13 @@
 <body>
     <a href="/leads/">Go back to leads list</a>
     <hr>
-    <h1>The detail of {{ lead.first_name }}</h1>
+    <h1>The detail of {{ lead.first_name }} {{ lead.last_name }}</h1>
+    <h2>Actual agent for this lead is {{ lead.agent }}</h2>
     <ul>
         <li>Age: {{ lead.age }}</li>
         <li>Source: {{ lead.source }}</li>
     </ul>
+    <hr>
+    <a href="/leads/{{ lead.pk }}/update">Update lead info</a>
 </body>
 </html>

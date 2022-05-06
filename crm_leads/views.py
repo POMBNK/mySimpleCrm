@@ -1,8 +1,8 @@
 from django.http import HttpRequest, HttpResponseRedirect, QueryDict
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import LeadForm
-from .models import Agent, Lead
+from .forms import ModelLeadForm, ModelLeadFormUpdate
+from .models import Lead
 
 
 def lead_list(request:HttpRequest)-> render:
@@ -14,7 +14,6 @@ def lead_list(request:HttpRequest)-> render:
 
 
 def lead_details(request:HttpRequest,pk:int)-> render:
-   print(request.GET)
    '''This function shows a list of details about current lead'''
    context = {
       "lead":Lead.objects.get(id=pk)
@@ -24,25 +23,33 @@ def lead_details(request:HttpRequest,pk:int)-> render:
 
 def lead_create(request:QueryDict)->render:
    '''This function renders the page with form to create a new lead'''
-   leadform = LeadForm()
+   leadform = ModelLeadForm()
    print(request.POST)
    if request.method == "POST":
       print("receiving a POST request...")
       # create a form instance and populate it with data from the request: (from documentation)
-      leadform = LeadForm(request.POST)
+      leadform = ModelLeadForm(request.POST)
       if leadform.is_valid():
          print("Your form is passed the validation")
-         first_name = leadform.cleaned_data['first_name']
-         last_name = leadform.cleaned_data['last_name']
-         age = leadform.cleaned_data['age']
-         agent = Agent.objects.get(id=1) # temporary plug to check how forms are working
-         Lead.objects.create(
-            first_name = first_name,
-            last_name = last_name,
-            age = age,
-            agent = agent
-         )
+         leadform.save()
          return HttpResponseRedirect(reverse("leads"))
       else:
-         leadform = LeadForm()
+         leadform = ModelLeadForm()
    return render(request,'crm_leads/lead_create.html',{'leadform':leadform})
+
+
+def lead_update(request:QueryDict,pk:int)->render:
+   '''This function renders the page with form to update an existing lead'''
+   lead = Lead.objects.get(id=pk)
+   leadform_update = ModelLeadFormUpdate(instance=lead)
+   print(request.POST)
+   if request.method == "POST":
+      print("receiving a POST request...")
+      leadform_update = ModelLeadFormUpdate(request.POST,instance=lead)
+      if leadform_update.is_valid():
+         print("Your form is passed the validation")
+         leadform_update.save()
+         return redirect(f'/leads/{pk}')
+      else:
+         leadform_update = ModelLeadFormUpdate()   
+   return render(request,'crm_leads/lead_update.html',{'leadform_update':leadform_update,"lead":lead})   

@@ -1,7 +1,14 @@
 from django import forms
+from .models import Lead
 
-class LeadForm(forms.Form):
-    
-    first_name = forms.CharField(max_length=20)
-    last_name = forms.CharField(max_length=20)
-    age = forms.IntegerField(min_value=18)
+class ModelLeadForm(forms.ModelForm):
+    '''That class allows make a form based on 'Lead' model's attributes'''
+    class Meta:
+        model = Lead
+        fields = '__all__'
+
+
+class ModelLeadFormUpdate(forms.ModelForm):
+    class Meta:
+        model = Lead
+        fields = '__all__'
