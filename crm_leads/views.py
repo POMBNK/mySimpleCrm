@@ -53,3 +53,9 @@ def lead_update(request:QueryDict,pk:int)->render:
       else:
          leadform_update = ModelLeadFormUpdate()   
    return render(request,'crm_leads/lead_update.html',{'leadform_update':leadform_update,"lead":lead})   
+
+
+def lead_delete(request:QueryDict,pk:int)->render:
+   lead = Lead.objects.get(id=pk)
+   lead.delete()
+   return redirect(f'/leads/')  
