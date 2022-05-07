@@ -32,7 +32,8 @@ def lead_create(request:QueryDict)->render:
       if leadform.is_valid():
          print("Your form is passed the validation")
          leadform.save()
-         return HttpResponseRedirect(reverse("leads"))
+         # return HttpResponseRedirect(reverse("lead-list"))
+         return redirect('/leads/')
       else:
          leadform = ModelLeadForm()
    return render(request,'crm_leads/lead_create.html',{'leadform':leadform})

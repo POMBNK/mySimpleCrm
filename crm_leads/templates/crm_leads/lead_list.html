@@ -7,12 +7,12 @@
     <title>Leads list</title>
 </head>
 <body>
-    <a href="/leads/new/">Create a new lead</a>
+    <a href="{% url 'leads:create' %}">Create a new lead</a>
     <hr>
     <h1>The list of leads</h1>
     {% for lead in leads %}
         <div>
-            <a href="/leads/{{ lead.pk }}/">{{ lead.first_name }} {{ lead.last_name }}. Age:{{ lead.age }}</a>
+            <a href="{% url 'leads:details' lead.pk %}">{{ lead.first_name }} {{ lead.last_name }}. Age:{{ lead.age }}</a>
         </div>
     {% endfor %}
 </body>

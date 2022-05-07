@@ -7,10 +7,10 @@
     <title>New lead</title>
 </head>
 <body>
-    <a href="/leads/">Go back to leads list</a>
+    <a href="{% url 'leads:lead-list' %}">Go back to leads list</a>
     <hr>
     <h1> Cretate a new lead</h1>
-    <form method="post" action=".">
+    <form method="post">
         {% csrf_token %} 
         {{ leadform.as_p }}
         <button type="submit">Submit</button>
