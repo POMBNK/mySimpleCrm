@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leads list</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <a href="{% url 'leads:create' %}">Create a new lead</a>
     <hr>
     <h1>The list of leads</h1>
@@ -15,5 +9,4 @@
             <a href="{% url 'leads:details' lead.pk %}">{{ lead.first_name }} {{ lead.last_name }}. Age:{{ lead.age }}</a>
         </div>
     {% endfor %}
-</body>
-</html>
+{% endblock content %}
